@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+            rel="stylesheet"
+        />
+        <title>Aplikasi Prediksi Peminatan Program Studi</title>
+    </head>
+    <body
+        class="
+            flex flex-col
+            justify-between
+            item-center
+            p-8
+            min-h-screen
+            bg-gradient-to-r
+            from-green-400
+            to-blue-500
+            text-gray-800
+            md:flex-row
+        "
+    >
+        <main class="bg-white p-16 rounded-lg">
+            <h1 class="text-3xl font-bold mb-8">
+                Prediksi Program Studi Anda:
+            </h1>
+
+            <form
+                action="{{ url_for('predict') }}"
+                method="post"
+                class="flex flex-col"
+            >
+                
+                <label for="JENIS_KELAMIN" class="mt-4 mb-2"
+                    >Jenis Kelamin:</label
+                >
+                <select
+                    name="JENIS_KELAMIN"
+                    id="JENIS_KELAMIN"
+                    class="p-4 bg-gray-100 rounded-md"
+                >
+                    <option value="Laki-laki">Laki-laki</option>
+                    <option value="Perempuan">Perempuan</option>
+                </select>
+
+                <label for="KABUPATEN_KOTA" class="mt-4 mb-2"
+                    >Asal Kabupaten/Kota:</label
+                >
+                <select
+                    name="KABUPATEN_KOTA"
+                    id="KABUPATEN_KOTA"
+                    class="p-4 bg-gray-100 rounded-md"
+                >
+                    <option value="ASAHAN">ASAHAN</option>
+                    <option value="BATUBARA">BATUBARA</option>
+                    <option value="KAMPAR">KAMPAR</option>
+                    <option value="LABUHAN BATU">LABUHAN BATU</option>
+                    <option value="LABUHAN BATU SELATAN">LABUHAN BATU SELATAN</option>
+                    <option value="LABUHAN BATU UTARA">LABUHAN BATU UTARA</option>
+                    <option value="MEDAN">MEDAN</option>
+                    <option value="PADANG LAWAS UTARA">PADANG LAWAS UTARA</option>
+                    <option value="PASAMAN BARAT">PASAMAN BARAT</option>
+                    <option value="PONTIANAK">PONTIANAK</option>
+                    <option value="ROKAN HILIR">ROKAN HILIR</option>
+                    <option value="SAMOSIR">SAMOSIR</option>
+                    <option value="SERDANG BEDAGAI">SERDANG BEDAGAI</option>
+                    <option value="SIAK">SIAK</option>
+                    <option value="SIMALUNGUN">SIMALUNGUN</option>
+                    <option value="SUMEDANG">SUMEDANG</option>
+                    <option value="TANJUNGBALAI">TANJUNGBALAI</option>
+                </select>
+
+                <label for="PROVINSI" class="mt-4 mb-2">Asal Provinsi:</label>
+                <select
+                    name="PROVINSI"
+                    id="PROVINSI"
+                    class="p-4 bg-gray-100 rounded-md"
+                >
+                    <option value="JAWA BARAT">JAWA BARAT</option>
+                    <option value="KALIMANTAN BARAT">KALIMANTAN BARAT</option>
+                    <option value="RIAU">RIAU</option>
+                    <option value="SUMATERA BARAT">SUMATERA BARAT</option>
+                    <option value="SUMATERA UTARA">SUMATERA UTARA</option>
+                </select>
+
+                <label for="JENJANG" class="mt-4 mb-2">Jenjang:</label>
+                <select
+                    name="JENJANG"
+                    id="JENJANG"
+                    class="p-4 bg-gray-100 rounded-md"
+                >
+                    <option value="MA">MA</option>
+                    <option value="SMA">SMA</option>
+                    <option value="SMK">SMK</option>
+                </select>
+
+                <label for="TAHUN_LULUS" class="mt-4 mb-2">Tahun Lulus:</label>
+                <input
+                    type="text"
+                    name="TAHUN_LULUS"
+                    placeholder="TAHUN_LULUS"
+                    required="required"
+                    class="p-4 bg-gray-100 rounded-md"
+                />
+
+
+                <button
+                    type="submit"
+                    class="
+                        flex
+                        justify-center
+                        align-center
+                        mt-8
+                        p-4
+                        bg-gradient-to-r
+                        from-green-400
+                        to-blue-500
+                        text-white
+                        rounded-md
+                    "
+                >
+                    PREDIKSI SEKARANG
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="feather feather-arrow-right ml-4"
+                    >
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </button>
+            </form>
+        </main>
+        <section class="mt-8 h-full flex-auto rounded-lg md:mt-0 md:ml-8">
+            <div class="bg-white p-16 rounded-lg">
+                <h1 class="text-2xl mb-8">
+                    Prediksi Program Studi Anda adalah
+                </h1>
+                <h2 class="text-5xl font-bold">{{ JURUSAN }}</h2>
+                {% if (JURUSAN) != 0 %}
+                <div class="mt-8">
+                    <h1 class="text-3xl font-bold mb-8">
+                        0 = Sistem Informasi
+                    </h1>
+                    <h1 class="text-3xl font-bold mb-8">
+                        1 = Sistem Komputer
+                    </h1>
+                    <p>JENIS_KELAMIN: {{ JENIS_KELAMIN }}</p>
+                    <p>KABUPATEN_KOTA: {{ KABUPATEN_KOTA }}</p>
+                    <p>PROVINSI: {{ PROVINSI }}</p>
+                    <p>JENJANG: {{ JENJANG }}</p>
+                    <p>TAHUN_LULUS: {{ TAHUN_LULUS }}</p>
+                    
+                </div>
+                {% endif %}
+            </div>
+            <div class="flex justify-around bg-white p-16 rounded-lg mt-8">
+                <img
+                    class="h-24 md:h-28"
+                    src="https://digitalent.kominfo.go.id/assets/@images/logo.png"
+                    alt="logo-dts"
+                />
+                <img
+                    class="h-24 md:h-28"
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Logo_of_Ministry_of_Communication_and_Information_Technology_of_the_Republic_of_Indonesia.svg/604px-Logo_of_Ministry_of_Communication_and_Information_Technology_of_the_Republic_of_Indonesia.svg.png"
+                    alt="logo-kominfo"
+                />
+            </div>
+        </section>
+    </body>
+</html>
